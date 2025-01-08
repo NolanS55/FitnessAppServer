@@ -1,0 +1,14 @@
+{
+  "name": "calorieserver",
+  "version": "1.0.0",
+  "description": "Server for retreiving and requesting information",
+  "main": " ",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
