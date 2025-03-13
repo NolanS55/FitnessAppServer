@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     weight: { type: Number, required: true },
     height: { type: Number, required: true },
     age: { type: Number, required: true },
+    gender: { type: Number, required: true },
     birthDate: { type: Date, required: true },
     location: { type: String, required: true },
     tarWeight: { type: Number, required: true },
