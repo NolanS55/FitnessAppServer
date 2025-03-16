@@ -23,25 +23,31 @@ router.post('/register', async (req, res) => {
 });
 
 // User login
-router.post('/login', async (req, res) => {
+router.post("/login", async (req, res) => {
   try {
+    console.log("Login Request Received!");
+    console.log("Request Body:", req.body); // Log the entire request body
+
     const { email, password } = req.body;
-    console.log(email, password)
-    const user = await User.findOne({ email });
+    if (!email || !password) {
+      console.log("Missing email or password");
+      return res.status(400).json({ message: "Missing email or password" });
+    }
+
+    console.log("Searching for user with email:", email);
+
+    const user = await User.findOne({ email: email.toLowerCase() });
+
     if (!user) {
-      return res.status(400).json({ message: 'Invalid email or password' });
+      console.log("User not found");
+      return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    if (password !== user.password) {
-      return res.status(400).json({ message: 'Invalid password' });
-    }
-
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-
-    res.json({ token, user });
+    console.log("User found:", user.email);
+    res.json({ message: "Login successful", user });
   } catch (error) {
-    console.error("Server Error:", error.message);
-    res.status(500).json({ message: error.message });
+    console.error("Server error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 
