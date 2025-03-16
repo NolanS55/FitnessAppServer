@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-
+    console.log(email, password)
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(400).json({ message: 'Invalid email or password' });
@@ -40,6 +40,7 @@ router.post('/login', async (req, res) => {
 
     res.json({ token, user });
   } catch (error) {
+    console.error("Server Error:", error.message);
     res.status(500).json({ message: error.message });
   }
 });
