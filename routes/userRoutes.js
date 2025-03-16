@@ -44,6 +44,12 @@ router.post("/login", async (req, res) => {
     }
 
     console.log("User found:", user.email);
+
+    if(password !== user.password) {
+      console.log("User not found");
+      return res.status(400).json({ message: "Invalid email or password" });
+    }
+    
     res.json({ message: "Login successful", user });
   } catch (error) {
     console.error("Server error:", error);
