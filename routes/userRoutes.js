@@ -68,6 +68,29 @@ router.get('/:userId', async (req, res) => {
   }
 });
 
+// Update user by email
+router.put('/:email', async (req, res) => {
+    try {
+        const { email } = req.params;
+        const updatedUser = req.body;
+        
+        const user = await User.findOneAndUpdate(
+            { email },
+            { $set: updatedUser },
+            { new: true, runValidators: true }
+        );
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json(user);
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating user', error: error.message });
+    }
+});
+
+
 // Update user details (e.g., personal data)
 router.put('/:userId', async (req, res) => {
   try {
