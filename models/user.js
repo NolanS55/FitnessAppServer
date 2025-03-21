@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     tarWeight: { type: Number, required: true },
     dayCal: { type: Number, required: true }
   },
-  daily: [{
+  daily: {
     date: { type: Date },
     meals: [{
       amount: { type: Number },
@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
       barcode: { type: String },
       nutrition: { type: Object } // Nutritional info could be structured further
     }]
-  }],
+  },
   calHistory: [{
     date: { type: Date },
     meals: [{
