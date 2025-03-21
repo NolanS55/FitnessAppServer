@@ -2,15 +2,20 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/user');
+const bcrypt = require('bcryptjs');
+const saltRounds = 10;
 
 // Create a new user
 router.post('/register', async (req, res) => {
   try {
     const { email, password, name, personal } = req.body;
 
+    // Hash the password
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const newUser = new User({
       email,
-      password,
+      password: hashedPassword, // Store hashed password
       name,
       personal
     });
@@ -26,7 +31,7 @@ router.post('/register', async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     console.log("Login Request Received!");
-    console.log("Request Body:", req.body); // Log the entire request body
+    console.log("Request Body:", req.body);
 
     const { email, password } = req.body;
     if (!email || !password) {
@@ -45,8 +50,10 @@ router.post("/login", async (req, res) => {
 
     console.log("User found:", user.email);
 
-    if(password !== user.password) {
-      console.log("User not found");
+    // Compare input password with stored hashed password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
+      console.log("Invalid password");
       return res.status(400).json({ message: "Invalid email or password" });
     }
     
