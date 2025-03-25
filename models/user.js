@@ -36,10 +36,10 @@ const userSchema = new mongoose.Schema({
     }]
   }],
   dailyEx: [{
-    dateTime: { type: Date },
+    dateTime: { type: String },
     calsBurned: { type: Number },
     type: { type: String },
-    time: { type: Number },
+    time: { type: String },
     distance: { type: Number },
     route: [[Number]]
   }],
@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema({
     dateTime: { type: Date },
     calsBurned: { type: Number },
     type: { type: String },
-    time: { type: Number },
+    time: { type: String },
     distance: { type: Number },
     route: [[Number]]
   }]
