@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
     type: { type: String },
     time: { type: Number },
     distance: { type: Number },
-    route: { type: String }
+    route: [[Number]]
   }],
   exHistory: [{
     dateTime: { type: Date },
@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema({
     type: { type: String },
     time: { type: Number },
     distance: { type: Number },
-    route: { type: String }
+    route: [[Number]]
   }]
 });
 
